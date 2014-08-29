@@ -1,4 +1,4 @@
-﻿/// Carlos Whited
+/// Carlos Whited
 /// August 28th, 2014
 /// 
 /// This is a simple game I made to try to learn the ropes in C# and try to 
@@ -18,8 +18,14 @@ namespace LearningCSharp
 {
     public class Game
     {
+    	/// Main function of the game.  User input should be parsed here and all important function calls 
+    	/// should be made here.  
         static void gameLoop()
         {
+        	/// The maze implementation is still having trouble so it is left commented out until it works
+            /// Maze gameMaze = new Maze();
+            /// makeMaze(gameMaze);
+            
             int xPos = 0;
             int yPos = 0;
 
@@ -39,15 +45,6 @@ namespace LearningCSharp
                 else if (userInput.KeyChar == 'a' && xPos > -10)
                     xPos--;
                 
-                /*if ((userInput.Key & ConsoleKey.UpArrow) == 0 && yPos < 5)
-                    yPos++;
-                else if ((userInput.Key & ConsoleKey.DownArrow) == 0 && yPos > -5)
-                    yPos--;
-                else if ((userInput.Key & ConsoleKey.RightArrow) == 0 && xPos < 10)
-                    xPos++;
-                else if ((userInput.Key & ConsoleKey.LeftArrow) == 0 && xPos > -10)
-                    xPos--;
-                */
                 System.Console.Clear();
                 System.Console.WriteLine("You are now at (" + xPos + ", " + yPos + ")");
 
@@ -55,6 +52,8 @@ namespace LearningCSharp
             }
         }
 
+		/// Function that shows where the player is on the console.  
+		/// Player is represented by a '0'.  
         static void showCurrentPos(int xPos, int yPos)
         {
             StringBuilder normalLine = new StringBuilder("|                     |");
@@ -74,6 +73,7 @@ namespace LearningCSharp
             System.Console.WriteLine(upperBorder);
         }
 
+		/// function that creates maze and outputs it to the console
         static void makeMaze(Maze gameMaze)
         {
             gameMaze.makeGraph(11, 24);
@@ -81,32 +81,32 @@ namespace LearningCSharp
             gameMaze.mazeCreate(ds);
             gameMaze.output();
         }
+        
         static int Main(string[] args)
         {
-            //Maze gameMaze = new Maze();
-            //makeMaze(gameMaze);
             gameLoop();
             return 0;
         }
     }
 
-    public class cell
-    {
-        public cell()
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                neighbor[i] = -1;
-                wall[i] = false;
-            }
-        }
-
-        public int[] neighbor = new int[4];
-        public bool[] wall = new bool[4];
-    }
-
+	/// Class that creates the maze.  It implements a graph structure with each cell being a node on the graph.
     public class Maze
     {
+    	public class cell
+    	{
+        	public cell()
+        	{
+            	for (int i = 0; i < 4; i++)
+            	{
+                	neighbor[i] = -1;
+                	wall[i] = false;
+            	}
+        	}
+
+        	public int[] neighbor = new int[4];
+        	public bool[] wall = new bool[4];
+    	}
+    	
         public Maze() { }
 
         public void makeGraph(int rows, int cols) 
@@ -114,11 +114,11 @@ namespace LearningCSharp
             cell e = new cell();
             for (int i = 0; i < rows*cols; i++)
                 grid.Add(e);
-
+	
             for (int i = 0; i < grid.Count; i++) 
             {
                 if(i % cols != 0) 			
-			        grid[i].neighbor[0] = i - 1;
+					grid[i].neighbor[0] = i - 1;
 		        else						
 		        	grid[i].neighbor[0] = -1;
 
@@ -310,9 +310,11 @@ namespace LearningCSharp
         private List<int> vorder = new List<int>();
     }
 
+	/// Class that implements a disjointSet (Union-Find) structure. Used when breaking down the maze grid
+	/// and ensuring that there is a solution to the maze.
     public class disjointSet
     {
-        private class element
+        public class element
         {
             public element()
             {
@@ -386,4 +388,25 @@ namespace LearningCSharp
     }
 }
 
-
+/// Code snippets that aren't implemented
+/// 
+/// Code to try and continue user input:
+/// 
+/// while (userInput.KeyChar == 'a')
+/// {
+///     xPos--;
+///     System.Console.Clear();
+///     System.Console.WriteLine("You are now at (" + xPos + ", " + yPos + ")");
+///     showCurrentPos(xPos + 11, yPos);
+/// }
+/// 
+/// Code to try and use arrow keys instead of WASD:
+/// 
+/// if ((userInput.Key & ConsoleKey.UpArrow) == 0 && yPos < 5)
+///     yPos++;
+/// else if ((userInput.Key & ConsoleKey.DownArrow) == 0 && yPos > -5)
+///     yPos--;
+/// else if ((userInput.Key & ConsoleKey.RightArrow) == 0 && xPos < 10)
+///     xPos++;
+/// else if ((userInput.Key & ConsoleKey.LeftArrow) == 0 && xPos > -10)
+///     xPos--;
