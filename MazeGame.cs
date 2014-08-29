@@ -22,6 +22,10 @@ namespace LearningCSharp
     	/// should be made here.  
         static void gameLoop()
         {
+        	/// The maze implementation is still having trouble so it is left commented out until it works
+            /// Maze gameMaze = new Maze();
+            /// makeMaze(gameMaze);
+            
             int xPos = 0;
             int yPos = 0;
 
@@ -41,15 +45,6 @@ namespace LearningCSharp
                 else if (userInput.KeyChar == 'a' && xPos > -10)
                     xPos--;
                 
-                /*if ((userInput.Key & ConsoleKey.UpArrow) == 0 && yPos < 5)
-                    yPos++;
-                else if ((userInput.Key & ConsoleKey.DownArrow) == 0 && yPos > -5)
-                    yPos--;
-                else if ((userInput.Key & ConsoleKey.RightArrow) == 0 && xPos < 10)
-                    xPos++;
-                else if ((userInput.Key & ConsoleKey.LeftArrow) == 0 && xPos > -10)
-                    xPos--;
-                */
                 System.Console.Clear();
                 System.Console.WriteLine("You are now at (" + xPos + ", " + yPos + ")");
 
@@ -89,9 +84,6 @@ namespace LearningCSharp
         
         static int Main(string[] args)
         {
-        	/// The maze implementation is still having trouble so it is left commented out until it works
-            /// Maze gameMaze = new Maze();
-            /// makeMaze(gameMaze);
             gameLoop();
             return 0;
         }
@@ -396,4 +388,25 @@ namespace LearningCSharp
     }
 }
 
-
+/// Code snippets that aren't implemented
+/// 
+/// Code to try and continue user input:
+/// 
+/// while (userInput.KeyChar == 'a')
+/// {
+///     xPos--;
+///     System.Console.Clear();
+///     System.Console.WriteLine("You are now at (" + xPos + ", " + yPos + ")");
+///     showCurrentPos(xPos + 11, yPos);
+/// }
+/// 
+/// Code to try and use arrow keys instead of WASD:
+/// 
+/// if ((userInput.Key & ConsoleKey.UpArrow) == 0 && yPos < 5)
+///     yPos++;
+/// else if ((userInput.Key & ConsoleKey.DownArrow) == 0 && yPos > -5)
+///     yPos--;
+/// else if ((userInput.Key & ConsoleKey.RightArrow) == 0 && xPos < 10)
+///     xPos++;
+/// else if ((userInput.Key & ConsoleKey.LeftArrow) == 0 && xPos > -10)
+///     xPos--;
